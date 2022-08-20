@@ -1,38 +1,39 @@
-import logoPath from "./images/around_logo.svg";
-import profilePath from "./images/profile.jpg";
+import React from "react";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import EditProfilePopup from "./EditProfilePopup";
+import AddCardPopup from "./AddCardPopup";
 
 function App() {
+  // hooks for opening/closing form popups
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
   return (
     <div className="page">
       <div className="page__content">
-        <header className="header">
-          <img className="logo" src={logoPath} alt="around the us logo" />
-        </header>
-        <main>
-          <section className="profile">
-            <div className="profile__image-container">
-              <img
-                src={profilePath}
-                alt="profile"
-                id="avatar"
-                className="profile__image"
-              />
-              <div className="profile__image-overlay"></div>
-            </div>
+        <Header />
+        <Main
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+        />
+        <Footer />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} />
+        <AddCardPopup isOpen={isAddPlacePopupOpen} />
 
-            <div className="profile__info">
-              <h1 className="profile__name">Cousteau</h1>
-              <p className="profile__description">Explorer</p>
-              <button type="button" className="profile__edit-button"></button>
-            </div>
-            <button type="button" className="profile__add-button"></button>
-          </section>
-          <section className="elements"></section>
-        </main>
-        <footer className="footer">
-          <p className="footer__text">© 2021 Around The U.S.</p>
-        </footer>
-        <div className="popup popup_type_edit">
+        {/* <div className="popup popup_type_edit">
           <div className="popup__container">
             <button
               type="button"
@@ -122,16 +123,6 @@ function App() {
             </form>
           </div>
         </div>
-        <div className="popup popup_type_image">
-          <div className="popup__container popup__container_image">
-            <button
-              type="button"
-              className="popup__close popup__close_image"
-            ></button>
-            <img className="popup__image" src="#" alt="" />
-            <p className="popup__caption"></p>
-          </div>
-        </div>
 
         <div className="popup popup_type_delete">
           <div className="popup__container">
@@ -179,7 +170,7 @@ function App() {
               </fieldset>
             </form>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
