@@ -8,6 +8,7 @@ function EditProfilePopup(props) {
       title="Edit profile"
       btnText="Save"
       isOpen={props.isOpen}
+      onClose={props.onClose}
     >
       <div className="popup__input-wrapper">
         <input

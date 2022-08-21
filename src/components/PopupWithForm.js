@@ -4,11 +4,15 @@ function PopupWithForm(props) {
   return (
     <div
       className={`popup popup_type_${props.name} ${
-        props.isOpen && `popup_is-visible`
+        props.isOpen ? "popup_is-visible" : ""
       }`}
     >
       <div className="popup__container">
-        <button type="button" className="popup__close"></button>
+        <button
+          type="button"
+          className="popup__close"
+          onClick={props.onClose}
+        ></button>
         <form name={props.name} className="popup__form">
           <h2 className="popup__title">{props.title}</h2>
           <fieldset className="popup__form-fieldset">

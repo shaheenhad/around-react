@@ -8,6 +8,7 @@ function AddCardPopup(props) {
       title="New Place"
       isOpen={props.isOpen}
       btnText="Create"
+      onClose={props.onClose}
     >
       <div className="popup__input-wrapper">
         <input

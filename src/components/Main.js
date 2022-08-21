@@ -1,13 +1,46 @@
 import React from "react";
-import profilePath from "../images/profile.jpg";
+import { api } from "../utils/api";
+import Card from "./Card";
 
 function Main(props) {
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription] = React.useState("");
+  const [userAvatar, setUserAvatar] = React.useState("");
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    api
+      .getUser()
+      .then((user) => {
+        setUserName(user.name);
+        setUserAvatar(user.avatar);
+        setUserDescription(user.about);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <main>
       <section className="profile">
-        <div className="profile__image-container">
+        <div
+          className="profile__image-container"
+          onClick={props.onEditAvatarClick}
+        >
           <img
-            src={profilePath}
+            src={userAvatar}
             alt="profile"
             id="avatar"
             className="profile__image"
@@ -16,8 +49,8 @@ function Main(props) {
         </div>
 
         <div className="profile__info">
-          <h1 className="profile__name">Cousteau</h1>
-          <p className="profile__description">Explorer</p>
+          <h1 className="profile__name">{userName}</h1>
+          <p className="profile__description">{userDescription}</p>
           <button
             type="button"
             className="profile__edit-button"
@@ -30,7 +63,13 @@ function Main(props) {
           onClick={props.onAddPlaceClick}
         ></button>
       </section>
-      <section className="elements"></section>
+      <section className="elements">
+        {cards.map((card) => {
+          return (
+            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+          );
+        })}
+      </section>
     </main>
   );
 }
