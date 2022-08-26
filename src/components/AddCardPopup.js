@@ -2,6 +2,30 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddCardPopup(props) {
+  const [name, setName] = React.useState();
+  const [link, setLink] = React.useState();
+
+  function handleNameChange(evt) {
+    setName(evt.target.value);
+  }
+
+  function handleLinkChange(evt) {
+    setLink(evt.target.value);
+  }
+
+  function handleSubmit(e) {
+    // Prevent the browser from navigating to the form address
+    e.preventDefault();
+
+    // Pass the values of the managed components to the external handler
+    props.onAddPlaceSubmit({
+      name,
+      link,
+    });
+
+    document.querySelector("#add").reset();
+  }
+
   return (
     <PopupWithForm
       name="add"
@@ -9,6 +33,7 @@ function AddCardPopup(props) {
       isOpen={props.isOpen}
       btnText="Create"
       onClose={props.onClose}
+      onSubmit={handleSubmit}
     >
       <div className="popup__input-wrapper">
         <input
@@ -20,6 +45,7 @@ function AddCardPopup(props) {
           required
           minLength="2"
           maxLength="30"
+          onChange={handleNameChange}
         />
         <span className="popup__input-error image-title-input-error"></span>
       </div>
@@ -31,6 +57,7 @@ function AddCardPopup(props) {
           id="link"
           name="link"
           required
+          onChange={handleLinkChange}
         />
         <span className="popup__input-error link-input-error"></span>
       </div>
