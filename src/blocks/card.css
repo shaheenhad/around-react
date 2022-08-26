@@ -36,6 +36,14 @@
   transition: opacity, 0.1s linear;
 }
 
+.card__trash_visible {
+  visibility: visible;
+}
+
+.card__trash_hidden {
+  visibility: hidden;
+}
+
 .card__trash:hover {
   opacity: 0.6;
 }
