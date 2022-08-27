@@ -2,8 +2,13 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-  const [name, setName] = React.useState();
-  const [link, setLink] = React.useState();
+  const [name, setName] = React.useState("");
+  const [link, setLink] = React.useState("");
+
+  React.useEffect(() => {
+    setName("");
+    setLink("");
+  }, [props.isOpen]);
 
   function handleNameChange(evt) {
     setName(evt.target.value);
@@ -22,8 +27,6 @@ function AddPlacePopup(props) {
       name,
       link,
     });
-
-    document.querySelector("#add").reset();
   }
 
   return (
@@ -31,7 +34,7 @@ function AddPlacePopup(props) {
       name="add"
       title="New Place"
       isOpen={props.isOpen}
-      btnText="Create"
+      btnText={props.isLoading ? "Saving..." : "Create"}
       onClose={props.onClose}
       onSubmit={handleSubmit}
     >
@@ -46,6 +49,7 @@ function AddPlacePopup(props) {
           minLength="2"
           maxLength="30"
           onChange={handleNameChange}
+          value={name}
         />
         <span className="popup__input-error image-title-input-error"></span>
       </div>
@@ -58,6 +62,7 @@ function AddPlacePopup(props) {
           name="link"
           required
           onChange={handleLinkChange}
+          value={link}
         />
         <span className="popup__input-error link-input-error"></span>
       </div>

@@ -6,13 +6,13 @@ function EditProfilePopup(props) {
   // Subscription to the context
   const currentUser = React.useContext(CurrentUserContext);
   // input state variables
-  const [name, setName] = React.useState();
-  const [description, setDescription] = React.useState();
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
 
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
   function handleNameChange(evt) {
     setName(evt.target.value);
@@ -37,7 +37,7 @@ function EditProfilePopup(props) {
     <PopupWithForm
       name="edit"
       title="Edit profile"
-      btnText="Save"
+      btnText={props.isLoading ? "Saving..." : "Save"}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
@@ -53,7 +53,7 @@ function EditProfilePopup(props) {
           minLength="2"
           maxLength="40"
           onChange={handleNameChange}
-          value={name}
+          value={name || ""}
         />
         <span className="popup__input-error name-input-error"></span>
       </div>
@@ -68,7 +68,7 @@ function EditProfilePopup(props) {
           minLength="2"
           maxLength="200"
           onChange={handleDescChange}
-          value={description}
+          value={description || ""}
         />
         <span className="popup__input-error title-input-error"></span>
       </div>
