@@ -2,6 +2,7 @@
   "name": "around-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://shaheenhad.github.io/around-react",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
@@ -37,7 +38,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://shaheenhad.github.io/around-react",
   "devDependencies": {
     "gh-pages": "^4.0.0"
   }
